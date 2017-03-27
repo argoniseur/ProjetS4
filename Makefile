@@ -1,5 +1,5 @@
 CC = gcc
-SYS = -Wall
+CC_PARAM = -Wall
 
 SRCDIR = src
 BINDIR = bin
@@ -14,7 +14,7 @@ All : $(OBJ_HEX) $(OBJ_PLATEAU)
 	mv *.o $(OBJDIR)/
 
 %.o: $(SRCDIR)/%.c
-	$(CC) -o $@ -c $< $(SYS) $(INC)
+	$(CC) -o $@ -c $< $(CC_PARAM)
 	
 clean:
 	rm -f *.o
