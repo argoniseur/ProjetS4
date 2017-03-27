@@ -4,11 +4,11 @@
 #include "Plateau.h"
 #define N 9
 
-typedef struct s_cell{
+struct s_cell{
 	int value;
 	int index;
 	struct s_cell *neighboors[6];
-}*Cell;
+};
 
 typedef struct s_sentinel{
     Cell *edges;
@@ -22,7 +22,7 @@ struct s_board{
 	Sentinel sentinelW1;
 	Sentinel sentinelW2;
 };
-
+/*
 Board init_B1(Board b, int n){
     // assert
     int val;
@@ -32,7 +32,7 @@ Board init_B1(Board b, int n){
     }
     return b;
 
-}
+}*/
 /*
 Board create_board(){
     Board b = (Board)malloc(sizeof(struct s_board));

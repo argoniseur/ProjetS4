@@ -6,6 +6,8 @@
 
 typedef struct s_board *Board;
 
+typedef struct s_cell *Cell;
+
 Board init_B1(Board b, int n);
 
 Board init_B2(Board b, int n);
@@ -26,4 +28,4 @@ int get_cell_value(Board b, int index);
 
 Cell get_cell(Board b, int index);
 
-Board insert_cell_value(SkipList d, int index, int value);
+Board insert_cell_value(Board d, int index, int value);
