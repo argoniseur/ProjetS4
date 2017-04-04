@@ -4,6 +4,7 @@
 #include "Plateau.h"
 #define N 9
 
+
 struct s_cell{
 	int value;
 	int index;
