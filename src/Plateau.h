@@ -1,3 +1,6 @@
+#ifndef __PLATEAU__
+#define __PLATEAU__
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <assert.h>
@@ -38,3 +41,5 @@ Cell get_cell(Board b, int index);
 
 /* Insère la valeur passée en paramètre dans la cellule d'index "index" */
 Board insert_cell_value(Board d, int index, int value);
+
+#endif
