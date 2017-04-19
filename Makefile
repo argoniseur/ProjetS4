@@ -14,27 +14,26 @@ TESTDIR=tests
 SRC=$(wildcard $(SRCDIR)/*.c)
 OBJ=$(SRC:.c=.o)
 
-EXEC=HexGame
+EXEC=$(BINDIR)/HexGame
 
 # Rules
 all: $(EXEC)
 
+%.o: $(SRCDIR)/%.c
+	$(CC) -o $@ -c $< $(CFLAGS)
+	
 $(EXEC) : $(OBJ)
-	$(CC) -o $(BINDIR)/$(EXEC) $(LDFLAGS)
-	mv *.o $(OBJDIR)/
+	$(CC) -o $@ $^ $(LDFLAGS)
+	mv $^ $(OBJDIR)/
 
 # Tests is not finished. Gotta wait something to work on
 tests: $(OBJ)
 	cd $(TESTDIR) && $(MAKE)
 
-%.o: $(SRCDIR)/%.c
-	$(CC) -o $@ -c $< $(CFLAGS)
-
 # Phony and clean
 .PHONY: clean
 
 clean:
-	rm -f *.o 
 	rm -f $(OBJDIR)/*.o 	# Remove all objs
 	rm -f $(BINDIR)/*		# Remove all execs
 	rm -f $(TESTDIR)/*.o 	# Remove all test objs
