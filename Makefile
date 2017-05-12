@@ -1,6 +1,6 @@
 # CC stuff
 export CC=gcc
-export CFLAGS=-Wall -Werror -std=99
+export CFLAGS=-Wall -Werror -std=c99
 export LDFLAGS=
 
 # Directories
