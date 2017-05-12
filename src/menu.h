@@ -4,19 +4,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include "Plateau.h"
 
 #define NOMJOUEUR 20
 
-struct s_player{
+typedef struct s_player{
         int value;
-        char nom[NOMJOUEUR+1];
+        char* nom;
         Cell dernierCoupJouer;
         int nbCoups;
-};
+}*Player;
 
-initJoueurs(Player *pa, Player *pb);
-
-int chooseFirstPlayer(Player *pa,Player *pb);
+void initJoueurs(Player *pa, Player *pb);
 
 #endif
 
