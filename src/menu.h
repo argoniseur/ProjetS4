@@ -10,7 +10,6 @@
 
 typedef struct s_player{
         int value;
-        char* nom;
         int dernierCoupJouer;
         int nbCoups;
 }*Player;
@@ -19,6 +18,7 @@ void initJoueurs(Player *pa, Player *pb);
 
 Board get_and_insert_coord(Board b, Player *p);
 
+char newGame();
 #endif
 
 

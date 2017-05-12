@@ -29,3 +29,13 @@ Board get_and_insert_coord(Board b, Player *p){
 
         return b;
 }
+
+/*affichage du menu de jeu*/
+char newGame(){
+  char choose;
+  
+  printf("Souhaitez vous lancer une partie ? [O/N]\n [O] pour charger une nouvelle partie\n [N] pour quitter le jeu\n");
+  scanf("%c", &choose);
+  
+  return choose;
+}
