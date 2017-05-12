@@ -34,6 +34,6 @@ tests: $(OBJ)
 .PHONY: clean
 
 clean:
-	rm -f $(OBJDIR)/*.o 	# Remove all objs
-	rm -f $(BINDIR)/*		# Remove all execs
-	rm -f $(TESTDIR)/*.o 	# Remove all test objs
+	rm -f $(OBJDIR)/*.o $(SRCDIR)/*.o	# Remove all objs
+	rm -f $(BINDIR)/*					# Remove all execs
+	rm -f $(TESTDIR)/*.o 				# Remove all test objs
