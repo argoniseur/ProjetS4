@@ -6,20 +6,32 @@
 #include <assert.h>
 #include <stdbool.h>
 #include <malloc.h>
+#define N 11
 
-typedef struct s_board *Board;
+typedef struct s_cell{
+	int value;
+	int index;
+	struct s_cell **neighboors;
+}*Cell;
 
-typedef struct s_cell *Cell;
+typedef struct s_board{
+	int size;
+	Cell tab[N*N];
+	Cell sentinelB1;
+	Cell sentinelB2;
+	Cell sentinelW1;
+	Cell sentinelW2;
+}*Board;
 
 /* Initialiser les 4 sentinelles du plateau */
 
-Board init_B1(Board b, int n);
+Board init_B1(Board b);
 
-Board init_B2(Board b, int n);
+Board init_B2(Board b);
 
-Board init_W1(Board b, int n);
+Board init_W1(Board b);
 
-Board init_W2(Board b, int n);
+Board init_W2(Board b);
 
 /* Retourne true si une cellule est située sur le bord du plateau */
 bool cell_on_edges(Board b, Cell cell);

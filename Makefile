@@ -5,14 +5,15 @@ export LDFLAGS=
 
 # Directories
 SRCDIR=src
-FILESDIR=fichiers
-TESTDIR=tests
 BINDIR=bin
 OBJDIR=obj
+FILESDIR=fichiers
+TESTDIR=tests
 
 # Files
 SRC=$(wildcard $(SRCDIR)/*.c)
 OBJ=$(SRC:.c=.o)
+
 EXEC=$(BINDIR)/HexGame
 
 # Rules
