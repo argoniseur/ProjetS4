@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "Plateau.h"
+#include "menu.h"
 #define N 11
 
 #define E 0
@@ -139,6 +140,58 @@ Board create_board(){
 Board insert_cell_value(Board b, int index, int value){
     b->tab[index]->value = value;
     return b;
+}
+/* Vérifie la validité des coordonnées */
+bool check_coord(int a, int c){
+    if(a<1 || a>N)
+        return false;
+    if(c<1 || c>N)
+        return false;
+
+    return true;
+}
+
+bool check_cell(Board b, int a, int c){
+    if(a>0 && a<N && c>0 && c<N)
+        if(b->tab[N*(a-1)+(c-1)]->value != 0)
+            return false;
+
+    return true;
+}
+
+/*Saisie des coordonnees d'entrer*/
+Board get_and_insert_coord(Board b, Player *p){
+        int lig, col;
+        (*p)->nbCoups++;
+        printf("Joueur %d, coup numéro %d\n", (*p)->value, (*p)->nbCoups);
+  
+        if((*p)->dernierCoupJouer != -1)
+                printf("Votre dernier coup joué: [%d,%d]\n", (((*p)->dernierCoupJouer)%N)+1, (((*p)->dernierCoupJouer)/N)+1);
+  
+        bool tst;
+        do{
+            tst = false;
+            printf("Saisissez les coordonnées de votre nouveau coup au format [ligne,colonne]\n");
+            scanf("%d", &lig); scanf("%d", &col);
+
+            if (!check_coord(lig, col))
+            {
+                printf("Coordonnées invalide\n");
+                tst = true;
+            }
+
+            if (!check_cell(b,lig,col)){
+                printf("Case occupée\n");
+                tst = true;
+            }
+
+        }while(tst);
+        
+        (*p)->dernierCoupJouer = (N*(lig-1))+(col-1);
+        
+        b = insert_cell_value(b, (*p)->dernierCoupJouer, (*p)->value);
+
+        return b;
 }
 
 /**Suppression du plateau

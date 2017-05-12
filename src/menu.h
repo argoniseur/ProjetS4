@@ -14,7 +14,7 @@ typedef struct s_player{
         int nbCoups;
 }*Player;
 
-void initJoueurs(Player *pa, Player *pb);
+void init_players(Player *pa, Player *pb);
 
 Board get_and_insert_coord(Board b, Player *p);
 

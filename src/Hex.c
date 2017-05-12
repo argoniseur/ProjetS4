@@ -5,16 +5,16 @@
 int main(int argc, char ** argv){
   int nbTurn;  
   char game;
-    
+  Player p1; Player p2;
+  
   game = newGame();
-  if(game=='O'){
-     Player p1; Player p2;
+  if(game == 'O'){
      init_players(&p1,&p2);  
   }
   else
     return 0;
     
-  Board hexBoard=create_board(();
+  Board hexBoard = create_board();
   print_board(hexBoard);
 
   nbTurn=0;
