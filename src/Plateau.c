@@ -135,6 +135,12 @@ Board create_board(){
     return b;
 }
 
+/* Insère la valeur passée en paramètre dans la cellule d'index "index" */
+Board insert_cell_value(Board b, int index, int value){
+    b->tab[index]->value = value;
+    return b;
+}
+
 /**Suppression du plateau
  * Par COURDY-BAHSOUN Clémence
  * Dernière modification le 15.04.2017

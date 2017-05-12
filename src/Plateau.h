@@ -42,6 +42,8 @@ bool surrounded(Board b, Cell cell);
 /* Initialise le plateau */
 Board create_board();
 
+Board insert_cell_value(Board b, int index, int value);
+
 /* Supprime le plateau et libère la mémoire */
 void board_delete(Board b);
 
