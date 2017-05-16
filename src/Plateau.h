@@ -44,6 +44,8 @@ Board create_board();
 
 Board insert_cell_value(Board b, int index, int value);
 
+int search_winner(Board b);
+
 /* Supprime le plateau et libère la mémoire */
 void board_delete(Board b);
 

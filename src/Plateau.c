@@ -12,6 +12,9 @@
 #define NO 4
 #define NE 5
 
+#define white_p 1
+#define black_p 2
+
 //Bord gauche
 Board init_B1(Board b){
     for(int i=0;i<N;i++){
@@ -45,7 +48,7 @@ Board init_W1(Board b){
 //Bord bas
 Board init_W2(Board b){
     for(int i=0;i<N;i++){
-        b->sentinelB1->neighboors[i] = b->tab[(N*(N-1))+i];
+        b->sentinelW2->neighboors[i] = b->tab[(N*(N-1))+i];
         b->tab[(N*(N-1))+i]->neighboors[SE] = b->sentinelW2;
         b->tab[(N*(N-1))+i]->neighboors[SO] = b->sentinelW2;
     }
@@ -88,22 +91,22 @@ Board create_board(){
     
     b->size = N*N;
     
-    //Création de la sentinelle pour les bord supérieure et inférieure
-    b->sentinelB1 = create_sentinel(3);
-    b->sentinelB2 = create_sentinel(1);
-    
-    //Création de la sentinelle pour les bord gauche et droite
-    b->sentinelW1 = create_sentinel(4);
-    b->sentinelW2 = create_sentinel(2);
+    //Création de la sentinelle pour les bords gauche et droite
+    b->sentinelW1 = create_sentinel(-2);
+    b->sentinelW2 = create_sentinel(-3);
+
+    //Création de la sentinelle pour les bords supérieurs et inférieurs
+    b->sentinelB1 = create_sentinel(-4);
+    b->sentinelB2 = create_sentinel(-6);
     
     for(int i=0;i<b->size;i++)
         b->tab[i] = create_cell(i);
       
-    //Chainage des sentinel au cellules bordantes
+    //Chainage des sentinelles aux cellules bordantes
         b = init_B1(b);
-        b = init_B2(b);
         b = init_W1(b);
-        b = init_W2(b);
+        b = init_B2(b);
+        b = init_W2(b);        
 
     //Chainage des cellules du palteau
     for(int i=0;i<b->size;i++){
@@ -117,7 +120,7 @@ Board create_board(){
             b->tab[i]->neighboors[SE] = b->tab[i+N];
 
         //chainage sud ouest
-        if(i+N-1 < N*N)
+        if((i+N)%N != 0 && i < N*N-N)
             b->tab[i]->neighboors[SO] = b->tab[i+N-1];
 
         //chainage ouest
@@ -125,11 +128,11 @@ Board create_board(){
             b->tab[i]->neighboors[O] = b->tab[i-1];
 
         //chainage nord ouest
-        if(i-N > 0)
+        if(i >= N)
             b->tab[i]->neighboors[NO] = b->tab[i-N];
 
         //chainage nord est
-        if(i-N+1 > 0)
+        if((i-N+1)%N > 0)
             b->tab[i]->neighboors[NE] = b->tab[i-N+1];
     }
 
@@ -192,6 +195,84 @@ Board get_and_insert_coord(Board b, Player *p){
         b = insert_cell_value(b, (*p)->dernierCoupJouer, (*p)->value);
 
         return b;
+}
+
+void search_W(Board b, int cells[]){
+    int cpt = 0;
+
+    for(int i = 0;i<N;i++){
+        if(b->tab[i]->value == white_p){
+            cells[cpt] = i;
+            cpt++;
+        }
+    }
+    cells[N] = cpt;
+}
+
+void search_B(Board b, int cells[]){
+    int cpt = 0;
+
+    for(int i = 0;i<N;i++){
+        if(b->tab[i*N]->value == black_p){
+            cells[cpt] = i*N;
+            cpt++;
+        }
+    }
+    cells[N] = cpt;
+}
+
+bool tested_cell(Cell tested[], Cell tst, int cpt_tested){
+    for(int i=0;i<cpt_tested;i++){
+        //printf("tested: value_c=%d, index_c=%d\n",tested[i]->value, tested[i]->index);
+        if(tested[i] == tst)
+            return true;
+    }
+    return false;
+}
+
+bool search_winner_through(Cell tst, Cell tested[], int cpt_tested, int joueur){
+    bool win = false;
+    for(int i = 0;i<6;i++){
+        if(tst->neighboors[i]->value == -3*joueur)
+            return true;
+
+        if(tst->neighboors[i]->value == joueur && !tested_cell(tested, tst->neighboors[i], cpt_tested)){
+            tested[cpt_tested] = tst->neighboors[i];
+            cpt_tested++;
+            win = search_winner_through(tst->neighboors[i],tested,cpt_tested,joueur);
+            if(win)
+                return win;
+        }
+        //int z; printf("value_c=%d, index_c=%d, i=%d, value=%d, win=%d",tst->value, tst->index, i, tst->neighboors[i]->value, win); scanf("%d", &z);
+    }
+    return win;
+}
+
+int search_winner(Board b){
+    int cells[N+1];
+    Cell tested[((N*N)/2)+1];
+    int cpt_tested = 0;
+
+    search_W(b,cells);
+    for(int i = 0;i<((N*N)/2)+1;i++){
+        tested[i] = NULL;
+    }
+
+    for(int i = 0; i<cells[N]; i++){
+        if(search_winner_through(b->tab[cells[i]],tested,cpt_tested,white_p))
+            return white_p;
+    }
+
+    search_B(b,cells);
+    for(int i = 0;i<((N*N)/2)+1;i++){
+        tested[i] = NULL;
+    }
+
+    for(int i = 0; i<cells[N]; i++){
+        if(search_winner_through(b->tab[cells[i]],tested,cpt_tested,black_p))
+            return black_p;
+    }    
+    return 0;
 }
 
 /**Suppression du plateau
