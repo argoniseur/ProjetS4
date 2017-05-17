@@ -1,7 +1,7 @@
 # CC stuff
-export CC=gcc
-export CFLAGS=-Wall -Werror -std=c99
-export LDFLAGS=
+CC=gcc
+CFLAGS=-Wall -Werror -std=c99
+LDFLAGS=
 
 # Directories
 SRCDIR=src
@@ -20,20 +20,20 @@ EXEC=$(BINDIR)/HexGame
 all: $(EXEC)
 
 %.o: $(SRCDIR)/%.c
-	$(CC) -o $@ -c $< $(CFLAGS)
+	  $(CC) -o $@ -c $< $(CFLAGS)
 	
 $(EXEC) : $(OBJ)
-	$(CC) -o $@ $^ $(LDFLAGS)
-	mv $^ $(OBJDIR)/
+	@$(CC) -o $@ $^ $(LDFLAGS)
+	@mv $^ $(OBJDIR)/
 
-# Tests is not finished. Gotta wait something to work on
-tests: $(OBJ)
-	cd $(TESTDIR) && $(MAKE)
+tests:
+	@(cd $(TESTDIR) && $(MAKE))
 
 # Phony and clean
-.PHONY: clean
+.PHONY: clean tests all
 
 clean:
-	rm -f $(OBJDIR)/*.o $(SRCDIR)/*.o	# Remove all objs
-	rm -f $(BINDIR)/*					# Remove all execs
-	rm -f $(TESTDIR)/*.o 				# Remove all test objs
+	@rm -f $(OBJDIR)/*.o $(SRCDIR)/*.o	# Remove all objs
+	@rm -f $(BINDIR)/*					# Remove all execs
+	@(cd $(TESTDIR) && $(MAKE) $@)
+	@echo "Cleaning done"

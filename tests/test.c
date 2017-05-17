@@ -1,6 +1,6 @@
-#include "Plateau.h"
-#include "menu.h"
-#include "Affichage.h"
+#include "../src/Plateau.c"
+#include "../src/menu.c"
+#include "../src/Affichage.c"
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -15,7 +15,7 @@ int main(int argc, char ** argv){
                         /* Plateau */
         printf("\n-- Plateau --\n");
         cptTest++;//création du plateau
-        if (!(d=create_board())){
+        if (!(d = create_board())){
                 printf("[ERREUR] Creation du plateau - create_board()\n");
                 cptErr++;
         }else{
