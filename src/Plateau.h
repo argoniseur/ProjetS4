@@ -44,6 +44,10 @@ Board create_board();
 
 Board insert_cell_value(Board b, int index, int value);
 
+bool check_coord(int a, int c);
+
+bool check_cell(Board b, int a, int c);
+
 int search_winner(Board b);
 
 /* Supprime le plateau et libère la mémoire */

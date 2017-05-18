@@ -22,7 +22,6 @@ void init_players(Player *pa, Player *pb){
         (*pb)->nbCoups = 0;
 }
 
-<<<<<<< HEAD
 /**
  * Saisie des coordonnees d'entrer
  * Paramètres: b = plateau en entrée modifié par l'insertion d'un pion de la valeur associé à p qui est alors retourné en sorti
@@ -68,13 +67,8 @@ Board get_and_insert_coord(Board b, Player *p){
  * Aucun parametres d'entrés
  * Retourne un char faisant office de booléen pour savoir si une nouvelle partie doit être lancé O-> OUI / N-> NON
  */
-char newGame(){
-  char choose;
-=======
-/*affichage du menu de jeu*/
 int newGame(){
   int choose;
->>>>>>> 55ca53773ca48f1d7aa9cb35d144419ffc6de51e
   
   printf("------- Menu Hex -------\n");
   printf("1 - Nouvelle partie\n");
