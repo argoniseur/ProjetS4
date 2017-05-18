@@ -162,40 +162,6 @@ bool check_cell(Board b, int a, int c){
     return true;
 }
 
-/*Saisie des coordonnees d'entrer*/
-Board get_and_insert_coord(Board b, Player *p){
-        int lig, col;
-        (*p)->nbCoups++;
-        printf("Joueur %d, coup numéro %d\n", (*p)->value, (*p)->nbCoups);
-  
-        if((*p)->dernierCoupJouer != -1)
-                printf("Votre dernier coup joué: [%d,%d]\n", (((*p)->dernierCoupJouer)%N)+1, (((*p)->dernierCoupJouer)/N)+1);
-  
-        bool tst;
-        do{
-            tst = false;
-            printf("Saisissez les coordonnées de votre nouveau coup au format [ligne,colonne]\n");
-            scanf("%d", &lig); scanf("%d", &col);
-
-            if (!check_coord(lig, col))
-            {
-                printf("Coordonnées invalide\n");
-                tst = true;
-            }
-
-            if (!check_cell(b,lig,col)){
-                printf("Case occupée\n");
-                tst = true;
-            }
-
-        }while(tst);
-        
-        (*p)->dernierCoupJouer = (N*(lig-1))+(col-1);
-        
-        b = insert_cell_value(b, (*p)->dernierCoupJouer, (*p)->value);
-
-        return b;
-}
 
 void search_W(Board b, int cells[]){
     int cpt = 0;
