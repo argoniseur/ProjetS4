@@ -23,7 +23,5 @@ Board get_and_insert_coord(Board b, Player *p);
 int newGame();
 
 void historical(Player pa, Player pb);
+
 #endif
-
-
-
