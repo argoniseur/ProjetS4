@@ -8,8 +8,11 @@ int main(int argc, char ** argv){
   	Player p1; Player p2;
   
 	game = newGame();
-	if(game == 'O'){
+	if(game == 1){
     	init_players(&p1,&p2);  
+	}
+	else if(game == 2){
+		printf("Pas encore dev");
 	}
 	else
     	return 0;
@@ -19,8 +22,8 @@ int main(int argc, char ** argv){
 
 	for(int i=0;i<10;i++){
 		hexBoard->tab[i*N]->value = 1;
-		hexBoard->tab[i*N+1]->value = 2;
 	}
+	hexBoard->tab[34]->value = 1;
 	print_board(hexBoard);
 
 	int winner;
@@ -40,8 +43,8 @@ int main(int argc, char ** argv){
     	nbTurn++;
   	}
   	if(winner == 1)
-  		printf("Joueur 1 gagne");
+  		printf("Joueur 1 gagne\n");
   	else if(winner == 2)
-  		printf("Joueur 2 gagne");
+  		printf("Joueur 2 gagne\n");
     return 0;
 }

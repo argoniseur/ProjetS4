@@ -18,7 +18,7 @@ void init_players(Player *pa, Player *pb);
 
 Board get_and_insert_coord(Board b, Player *p);
 
-char newGame();
+int newGame();
 #endif
 
 

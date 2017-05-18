@@ -1,6 +1,8 @@
+
+
 # CC stuff
 CC=gcc
-CFLAGS=-Wall -Werror -std=c99
+CFLAGS=-Wall -Werror -std=c99 -g
 LDFLAGS=
 
 # Directories
@@ -9,6 +11,14 @@ BINDIR=bin
 OBJDIR=obj
 FILESDIR=fichiers
 TESTDIR=tests
+
+ifeq ($(BINDIR),)
+	mkdir $(BINDIR)
+endif
+
+ifeq (,$(OBJDIR))
+	mkdir $(OBJDIR)
+endif
 
 # Files
 SRC=$(wildcard $(SRCDIR)/*.c)

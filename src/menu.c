@@ -14,11 +14,16 @@ void init_players(Player *pa, Player *pb){
 }
 
 /*affichage du menu de jeu*/
-char newGame(){
-  char choose;
+int newGame(){
+  int choose;
   
-  printf("Souhaitez vous lancer une partie ? [O/N]\n [O] pour charger une nouvelle partie\n [N] pour quitter le jeu\n");
-  scanf("%c", &choose);
+  printf("------- Menu Hex -------\n");
+  printf("1 - Nouvelle partie\n");
+  printf("2 - Charger partie\n");
+  printf("3 - Quitter\n");
+
+
+  scanf("%d", &choose);
   
   return choose;
 }
