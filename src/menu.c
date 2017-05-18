@@ -7,13 +7,6 @@
 
 #include "menu.h"
 
-void viderBuffer(){
-    int c = 0;
-    while (c != '\n' && c != EOF){
-        c = getchar();
-    }
-}
-
 /**
  * Initialise les informations des deux joueurs 
  * Rôle des paramètres: pa et pb sont des paramètres d'entrées/sorties qui sont initialisés avec les informations propres aux deux joueurs
@@ -21,8 +14,12 @@ void viderBuffer(){
 Player init_players(int num){
         Player pa = (Player)malloc(sizeof(struct s_player));
 	printf("saisissez le nom du joueur\n");
-        viderBuffer();
 	fgets((pa)->nom,20,stdin);
+
+        for (int i = 0;i<20;i++)
+                if(pa->nom[i] == '\n')
+                        pa->nom[i] = '\0';
+
         (pa)->value = num;
         (pa)->dernierCoupJouer = -1;
         (pa)->nbCoups = 0;

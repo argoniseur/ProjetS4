@@ -2,12 +2,20 @@
 #include "Affichage.h"
 #include "menu.h"
 
+void viderBuffer(){
+    int c = 0;
+    while (c != '\n' && c != EOF){
+        c = getchar();
+    }
+}
+
 int main(int argc, char ** argv){
   	int nbTurn;  
   	char game;
   	Player p1; Player p2;
 	game = newGame();
 	if(game == 1){
+		viderBuffer();
     	p1 = init_players(1);
     	p2 = init_players(2);
 	}
@@ -44,7 +52,7 @@ int main(int argc, char ** argv){
   	if(winner == 1){
   		historical(p1,p2);
   	}
-  	else if(winner == 2){
+  	else{
   		historical(p2,p1);
   	}
 
