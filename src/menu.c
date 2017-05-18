@@ -22,6 +22,7 @@ void init_players(Player *pa, Player *pb){
         (*pb)->nbCoups = 0;
 }
 
+<<<<<<< HEAD
 /**
  * Saisie des coordonnees d'entrer
  * Paramètres: b = plateau en entrée modifié par l'insertion d'un pion de la valeur associé à p qui est alors retourné en sorti
@@ -69,9 +70,19 @@ Board get_and_insert_coord(Board b, Player *p){
  */
 char newGame(){
   char choose;
+=======
+/*affichage du menu de jeu*/
+int newGame(){
+  int choose;
+>>>>>>> 55ca53773ca48f1d7aa9cb35d144419ffc6de51e
   
-  printf("Souhaitez vous lancer une partie ? [O/N]\n [O] pour charger une nouvelle partie\n [N] pour quitter le jeu\n");
-  scanf("%c", &choose);
+  printf("------- Menu Hex -------\n");
+  printf("1 - Nouvelle partie\n");
+  printf("2 - Charger partie\n");
+  printf("3 - Quitter\n");
+
+
+  scanf("%d", &choose);
   
   return choose;
 }
