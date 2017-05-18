@@ -249,17 +249,13 @@ int search_winner(Board b){
     //Destructon d'une cellule
   
 void cell_delete(Cell c){
+    free(c->neighboors);
     free(c);
 }
 
   //Suppression d'une sentinelle
 void sentinel_delete(Cell s){
-    
-    for(int i=0;i<N;i++)
-        cell_delete(s->neighboors[i]);
-    
     free(s->neighboors);
-    
     free(s);
 }
 
@@ -273,7 +269,6 @@ void board_delete(Board b){
     sentinel_delete(b->sentinelB2);
     sentinel_delete(b->sentinelW1);
     sentinel_delete(b->sentinelW2);
-  
     free(b);
 }
 

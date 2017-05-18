@@ -21,8 +21,8 @@ void viderBuffer(){
 Player init_players(int num){
         Player pa = (Player)malloc(sizeof(struct s_player));
 	printf("saisissez le nom du joueur\n");
-	fgets((pa)->nom,20,stdin);
         viderBuffer();
+	fgets((pa)->nom,20,stdin);
         (pa)->value = num;
         (pa)->dernierCoupJouer = -1;
         (pa)->nbCoups = 0;
@@ -96,10 +96,9 @@ void historical(Player pa, Player pb){
         if(fic == NULL)
                 fprintf(stderr,"Impossible d'ouvrir l'historique\n");
         else{
-                fprintf(fic,"%s gagne en %d coups %s\n",pa->nom,pa->nbCoups,pb->nom);
+                fprintf(fic,"%s gagne en %d coups contre %s\n",pa->nom,pa->nbCoups,pb->nom);
                 fclose(fic);
         }
-  int z; printf("1111"); scanf("%d", &z);  
 }
   
   

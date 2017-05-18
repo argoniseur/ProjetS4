@@ -6,19 +6,19 @@ int main(int argc, char ** argv){
   	int nbTurn;  
   	char game;
   	Player p1; Player p2;
-  	Board hexBoard = create_board();
 	game = newGame();
 	if(game == 1){
     	p1 = init_players(1);
-    	p2 = init_players(2);  
+    	p2 = init_players(2);
 	}
 	else if(game == 2){
 		printf("Pas encore dev");
 	}
-	else
-    	return 0;
+	else{
+		return 0;
+	}
     
-	
+	Board hexBoard = create_board();
 	for(int i=0;i<10;i++){
 		hexBoard->tab[i*N]->value = 1;
 		hexBoard->tab[i*N+1]->value = 2;
