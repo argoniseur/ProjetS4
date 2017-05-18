@@ -27,10 +27,6 @@ int main(int argc, char ** argv){
 	}
     
 	Board hexBoard = create_board();
-	for(int i=0;i<10;i++){
-		hexBoard->tab[i*N]->value = 1;
-		hexBoard->tab[i*N+1]->value = 2;
-	}
 	print_board(hexBoard);
 
 	int winner;
@@ -38,6 +34,7 @@ int main(int argc, char ** argv){
 	Player p=p1;
 
 	while(nbTurn<N*N && !winner){
+
     	hexBoard = get_and_insert_coord(hexBoard,&p);
     	print_board(hexBoard);
     	
