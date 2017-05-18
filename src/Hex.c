@@ -20,12 +20,6 @@ int main(int argc, char ** argv){
 	Board hexBoard = create_board();
 	print_board(hexBoard);
 
-	for(int i=0;i<10;i++){
-		hexBoard->tab[i*N]->value = 1;
-	}
-	hexBoard->tab[34]->value = 1;
-	print_board(hexBoard);
-
 	int winner;
 	nbTurn=0;
 	Player p=p1;
