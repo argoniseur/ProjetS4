@@ -14,6 +14,10 @@
 void init_players(Player *pa, Player *pb){
         *pa = (Player)malloc(sizeof(Player));
         *pb = (Player)malloc(sizeof(Player));
+	printf("saisissez le nom du joueur 1\n");
+	fgets((*pa)->nom,20,stdin);
+	printf("saisissez le nom du joueur 2\n");
+	fgets((*pb)->nom,20,stdin);
         (*pa)->value = 1;
         (*pb)->value = 2;
         (*pa)->dernierCoupJouer = -1;
@@ -80,3 +84,19 @@ int newGame(){
   
   return choose;
 }
+
+void historical(Player pa, Player pb){
+  FILE* fic;
+  
+  fic=fopen("./ProjetS4/saves/historique","a");
+  
+  if(fic==NULL)
+    fprintf(stderr,"Impossible d'ouvrir l'historique\n");
+  else
+    fprintf(fic,"%s gagne en %d coups %s\n",pa->nom,pa->nbCoups,pb->nom);
+  
+  fclose(fic);
+  
+}
+  
+  

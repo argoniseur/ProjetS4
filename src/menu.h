@@ -10,6 +10,7 @@
 #define NOMJOUEUR 20
 
 typedef struct s_player{
+	char nom[20];
         int value;
         int dernierCoupJouer;
         int nbCoups;
@@ -20,6 +21,8 @@ void init_players(Player *pa, Player *pb);
 Board get_and_insert_coord(Board b, Player *p);
 
 int newGame();
+
+void historical(Player pa, Player pb);
 #endif
 
 
