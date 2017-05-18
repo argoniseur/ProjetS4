@@ -12,14 +12,6 @@ OBJDIR=obj
 FILESDIR=fichiers
 TESTDIR=tests
 
-ifeq ($(BINDIR),)
-	mkdir $(BINDIR)
-endif
-
-ifeq (,$(OBJDIR))
-	mkdir $(OBJDIR)
-endif
-
 # Files
 SRC=$(wildcard $(SRCDIR)/*.c)
 OBJ=$(SRC:.c=.o)
@@ -27,11 +19,16 @@ OBJ=$(SRC:.c=.o)
 EXEC=$(BINDIR)/HexGame
 
 # Rules
-all: $(EXEC)
+all: $(BINDIR) $(OBJDIR) $(EXEC)
 
 %.o: $(SRCDIR)/%.c
-	  $(CC) -o $@ -c $< $(CFLAGS)
-	
+	$(CC) -o $@ -c $< $(CFLAGS)
+
+$(BINDIR):
+	@mkdir -p $(BINDIR)
+$(OBJDIR):
+	@mkdir -p $(OBJDIR)
+
 $(EXEC) : $(OBJ)
 	@$(CC) -o $@ $^ $(LDFLAGS)
 	@mv $^ $(OBJDIR)/
