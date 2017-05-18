@@ -7,23 +7,26 @@
 
 #include "menu.h"
 
+void viderBuffer(){
+    int c = 0;
+    while (c != '\n' && c != EOF){
+        c = getchar();
+    }
+}
+
 /**
  * Initialise les informations des deux joueurs 
  * Rôle des paramètres: pa et pb sont des paramètres d'entrées/sorties qui sont initialisés avec les informations propres aux deux joueurs
  */
-void init_players(Player *pa, Player *pb){
-        *pa = (Player)malloc(sizeof(Player));
-        *pb = (Player)malloc(sizeof(Player));
-	printf("saisissez le nom du joueur 1\n");
-	fgets((*pa)->nom,20,stdin);
-	printf("saisissez le nom du joueur 2\n");
-	fgets((*pb)->nom,20,stdin);
-        (*pa)->value = 1;
-        (*pb)->value = 2;
-        (*pa)->dernierCoupJouer = -1;
-        (*pb)->dernierCoupJouer = -1;
-        (*pa)->nbCoups = 0;
-        (*pb)->nbCoups = 0;
+Player init_players(int num){
+        Player pa = (Player)malloc(sizeof(Player));
+	printf("saisissez le nom du joueur\n");
+        viderBuffer();
+	fgets((pa)->nom,20,stdin);
+        (pa)->value = num;
+        (pa)->dernierCoupJouer = -1;
+        (pa)->nbCoups = 0;
+        return pa;
 }
 
 /**
@@ -86,17 +89,17 @@ int newGame(){
 }
 
 void historical(Player pa, Player pb){
-  FILE* fic;
+  FILE* fic = NULL;
   
-  fic=fopen("./ProjetS4/saves/historique","a");
+  fic = fopen("./saves/historique","a");
   
-  if(fic==NULL)
-    fprintf(stderr,"Impossible d'ouvrir l'historique\n");
-  else
-    fprintf(fic,"%s gagne en %d coups %s\n",pa->nom,pa->nbCoups,pb->nom);
-  
-  fclose(fic);
-  
+        if(fic == NULL)
+                fprintf(stderr,"Impossible d'ouvrir l'historique\n");
+        else{
+                fprintf(fic,"%s gagne en %d coups %s\n",pa->nom,pa->nbCoups,pb->nom);
+                fclose(fic);
+        }
+  int z; printf("1111"); scanf("%d", &z);  
 }
   
   

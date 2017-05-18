@@ -1,4 +1,3 @@
-
 #ifndef __MENU__
 #define __MENU__
 
@@ -11,12 +10,12 @@
 
 typedef struct s_player{
 	char nom[20];
-        int value;
-        int dernierCoupJouer;
-        int nbCoups;
+    int value;
+    int dernierCoupJouer;
+    int nbCoups;
 }*Player;
 
-void init_players(Player *pa, Player *pb);
+Player init_players(int num);
 
 Board get_and_insert_coord(Board b, Player *p);
 
