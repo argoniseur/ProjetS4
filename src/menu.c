@@ -19,10 +19,10 @@ void viderBuffer(){
  * Rôle des paramètres: pa et pb sont des paramètres d'entrées/sorties qui sont initialisés avec les informations propres aux deux joueurs
  */
 Player init_players(int num){
-        Player pa = (Player)malloc(sizeof(Player));
+        Player pa = (Player)malloc(sizeof(struct s_player));
 	printf("saisissez le nom du joueur\n");
-        viderBuffer();
 	fgets((pa)->nom,20,stdin);
+        viderBuffer();
         (pa)->value = num;
         (pa)->dernierCoupJouer = -1;
         (pa)->nbCoups = 0;

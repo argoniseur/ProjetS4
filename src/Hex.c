@@ -6,7 +6,7 @@ int main(int argc, char ** argv){
   	int nbTurn;  
   	char game;
   	Player p1; Player p2;
-  
+  	Board hexBoard = create_board();
 	game = newGame();
 	if(game == 1){
     	p1 = init_players(1);
@@ -18,7 +18,7 @@ int main(int argc, char ** argv){
 	else
     	return 0;
     
-	Board hexBoard = create_board();
+	
 	for(int i=0;i<10;i++){
 		hexBoard->tab[i*N]->value = 1;
 		hexBoard->tab[i*N+1]->value = 2;
