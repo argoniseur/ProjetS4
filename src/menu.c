@@ -16,6 +16,7 @@ Player init_players(int num){
 	printf("saisissez le nom du joueur\n");
 	fgets((pa)->nom,20,stdin);
 
+		/* Problème valgrind ici. Il n'aime pas le changement de saut de ligne en caractère vide car il considère que le tableau n'est pas initialisé */
         for (int i = 0;i<20;i++)
                 if(pa->nom[i] == '\n')
                         pa->nom[i] = '\0';
