@@ -14,35 +14,33 @@ void print_board(Board b){
 	printf("\n");
 	for (int i=0;i<N;i++){
 		if(i==0)
-			printf("W\\ ");
+			printf("W ");
 		else
 			printf("W ");
 	}
-	printf("W \\B\n");
+	printf("W/B\n");
 
 	for (int i=0;i<N;i++){
 		for (int j=0;j<i+1;j++){
 			printf(" ");
 		}
-		printf("B\\ ");
+		printf("B ");
 
 		for (int j=0;j<N;j++){
 			if (b->tab[(i*N)+j]->value == 1)
-				printf("W ");
+				printf("o ");
 			else if (b->tab[(i*N)+j]->value == 2)
-				printf("B ");
+				printf("* ");
 			else
-				printf("  ");
+				printf(". ");
 		}
-		printf("\\B\n");
+		printf("B\n");
 	}
 	for (int j=0;j<N+1;j++){
 		printf(" ");
 	}
-	printf("B\\ W ");
+	printf("B/W ");
 	for (int i=0;i<N;i++){
-		if (i == N-1)
-			printf("\\");
 		printf("W ");
 	}
 	printf("\n\n");

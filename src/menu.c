@@ -96,4 +96,4 @@ void historical(Player pa, Player pb){
         }
 }
   
-  
+//void save_game(Board b, Player
