@@ -27,20 +27,21 @@ int main(int argc, char ** argv){
 	}
     
 	Board hexBoard = create_board();
-	
+	Historique histo[N*N];
+    init_histo(histo);
 	/*
-	for (int i=0;i<11;i++)
+	for (int i=0;i<10;i++)
 		hexBoard->tab[N*i]->value = 1;
 	*/
 	print_board(hexBoard);
-
 	int winner = 0;
 	nbTurn = 0;
 	Player p = p1;
+    int quitter = 0;
 
-	while(nbTurn<N*N && !winner){
+	while(!winner && quitter == 0){
 
-    	hexBoard = get_and_insert_coord(hexBoard,&p);
+    	hexBoard = get_and_insert_coord(hexBoard,&p,histo,nbTurn,&quitter);
     	print_board(hexBoard);
     	
     	winner = search_winner(hexBoard);
@@ -53,13 +54,20 @@ int main(int argc, char ** argv){
   	}
   	if(winner == 1){
   		historical(p1,p2);
+        printf("%s remporte la partie ! Félicitations !", p1->nom);
   	}
-  	else{
+  	else if(winner == 2){
   		historical(p2,p1);
+        printf("%s remporte la partie ! Félicitations !", p2->nom);
   	}
+
+    if(quitter == 1)
+        save_game(hexBoard, p1, p2, histo, nbTurn);
 
   	free(p1);
   	free(p2);
+    for(int i = 0;i<N*N;i++)
+        free(histo[i]);
   	board_delete(hexBoard);
     return 0;
 }
