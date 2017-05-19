@@ -36,6 +36,9 @@ $(EXEC) : $(OBJ)
 tests:
 	@(cd $(TESTDIR) && $(MAKE))
 
+demo: $(OBJ)
+
+
 # Phony and clean
 .PHONY: clean tests all
 

@@ -155,10 +155,9 @@ bool check_coord(int a, int c){
 }
 
 bool check_cell(Board b, int a, int c){
-    if(a>0 && a<N && c>0 && c<N)
+    if((a>0 && a<=N) && (c>0 && c<=N))
         if(b->tab[N*(a-1)+(c-1)]->value != 0)
             return false;
-
     return true;
 }
 

@@ -43,15 +43,13 @@ Board get_and_insert_coord(Board b, Player *p){
         do{
             tst = false;
             printf("Saisissez les coordonnées de votre nouveau coup au format [ligne,colonne]\n");
-	    printf("Numéro de ligne: "); scanf("%d", &lig);
-	    printf("Numéro de colonne: "); scanf("%d", &col);
+			printf("Numéro de ligne: "); scanf("%d", &lig);
+			printf("Numéro de colonne: "); scanf("%d", &col);
 
-            if (!check_coord(lig, col))
-            {
+            if (!check_coord(lig, col)){
                 printf("Coordonnées invalide\n");
                 tst = true;
             }
-
             if (!check_cell(b,lig,col)){
                 printf("Case occupée\n");
                 tst = true;
