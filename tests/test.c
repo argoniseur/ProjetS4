@@ -19,8 +19,8 @@
 
 /*
 	Plateau.c :  à faire :  search_winner
-	Menu.c : tests newGame en commentaire
-	
+	Menu.c : à faire : historical
+	Affichage.c : terminé
 	
 	Vérifier que d'autres fonctions n'ont pas été ajoutée
 
@@ -204,15 +204,15 @@ int main(int argc, char ** argv){
 			cptTest++;
 			check_coord(5,2);
 			insert_cell_value(d,(N*(5-1))+(2-1),2);
-			if (!(check_cell(d,5,2))){
+			if ( check_cell(d,5,2) ){
 				printf("[ERREUR] Cellule occupée - check_cell()\n");
 				cptErr++;
 			}else printf("[OK] Cellule occupée.\n");
 			cptTest++;
-			if ( check_cell(d,5,3) ){
-				printf("[ERREUR] Cellule non occupée - check_cell()\n");
+			if ( !(check_cell(d,5,3)) ){
+				printf("[ERREUR] Cellule vide - check_cell()\n");
 				cptErr++;
-			}else printf("[OK] Cellule non occupée.\n");
+			}else printf("[OK] Cellule vide.\n");
 			
 			//Recherche d'un gagnant - search_winner()
 			
@@ -239,31 +239,32 @@ int main(int argc, char ** argv){
 			if ( cptErrMenu != 0 ) printf("[ERREUR] init_players() - %d erreurs sur 6 tests.\n",cptErrMenu);
 			else printf("[OK] Initialisation des joueurs - 6 tests effectués.\n");
                
-            cptErr=cptErr+cptErrMenu;
+            		cptErr=cptErr+cptErrMenu;
               
 			//Saisie des coordonnees d'entrer - get_and_insert_coord()
 			cptErrMenu=0;
-			printf("Coordonnées valides :\nEssayez ligne 1, colonne 1.\n");
+			printf("     Coordonnées valides : Faites [1,1].\n");
 			get_and_insert_coord(d,&pa);
-			printf("Coordonnées invalides, les deux : \nEssayez ligne -3, colonne -2. Puis ligne 3, colonne 2.\n");
+			printf("     Coordonnées invalides, les deux : Faites [-3,-2]. Puis [3,2].\n");
 			get_and_insert_coord(d,&pa);
-			printf("Coordonnées invalides, ligne : \nEssayez ligne 414, colonne 3. Puis ligne 2, colonne 3.\n");
+			printf("     Coordonnées invalides, ligne : Faites [414,3]. Puis [2,3].\n");
 			get_and_insert_coord(d,&pa);
-			printf("Coordonnées invalides, colonne : \nEssayez ligne 3, colonne 414. Puis ligne 3, colonne 3.\n");
+			printf("     Coordonnées invalides, colonne : Faites [3,414]. Puis [3,3].\n");
 			get_and_insert_coord(d,&pa);
-			printf("Case occupée :\nEssayez ligne 3,colonne 3.\n");
+			printf("     Case occupée : Essayez [3,3]. Puis [3,4].\n");
 			get_and_insert_coord(d,&pa);
 			
 			//Affichage du menu de jeu - newGame()
-			/*
-				cptTest++;
-				testint=newGame();
-				if ( testint != 1 || testint != 2 || testint != 3 ){
-					printf("[ERREUR] Menu du jeu - newGame()\n");
-					cptErr++;
-				}else printf("[OK] Menu du jeu.\n");
-				*/	
+			cptTest++;
+			testint=newGame();
+			if ( testint != 1 && testint != 2 && testint != 3 ){
+				printf("[ERREUR] Menu du jeu - newGame()\n");
+				cptErr++;
+			}else printf("[OK] Menu du jeu.\n");
 			
+
+
+
                        /* Affichage */
             printf("\n-- Affichage --\n");
             print_board(d);
