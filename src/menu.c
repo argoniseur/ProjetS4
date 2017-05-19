@@ -34,7 +34,7 @@ Player init_players(int num){
 Board get_and_insert_coord(Board b, Player *p){
         int lig, col;
         (*p)->nbCoups++;
-        printf("Joueur %d, coup numéro %d\n", (*p)->value, (*p)->nbCoups);
+        printf("%s, coup numéro %d\n", (*p)->nom, (*p)->nbCoups);
   
         if((*p)->dernierCoupJouer != -1)
                 printf("Votre dernier coup joué: [%d,%d]\n", (((*p)->dernierCoupJouer)/N)+1, (((*p)->dernierCoupJouer)%N)+1);

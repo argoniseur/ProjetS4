@@ -36,14 +36,11 @@ $(EXEC) : $(OBJ)
 tests:
 	@(cd $(TESTDIR) && $(MAKE))
 
-demo: $(OBJ)
-
-
 # Phony and clean
 .PHONY: clean tests all
 
 clean:
 	@rm -f $(OBJDIR)/*.o $(SRCDIR)/*.o	# Remove all objs
 	@rm -f $(BINDIR)/*					# Remove all execs
-	@(cd $(TESTDIR) && $(MAKE) $@)
+	@(cd $(TESTDIR) && $(MAKE) $@)		# Go to test repo and make clean
 	@echo "Cleaning done"

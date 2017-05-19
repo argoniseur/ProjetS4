@@ -27,11 +27,16 @@ int main(int argc, char ** argv){
 	}
     
 	Board hexBoard = create_board();
+	
+	/*
+	for (int i=0;i<11;i++)
+		hexBoard->tab[N*i]->value = 1;
+	*/
 	print_board(hexBoard);
 
 	int winner = 0;
-	nbTurn=0;
-	Player p=p1;
+	nbTurn = 0;
+	Player p = p1;
 
 	while(nbTurn<N*N && !winner){
 
@@ -39,10 +44,10 @@ int main(int argc, char ** argv){
     	print_board(hexBoard);
     	
     	winner = search_winner(hexBoard);
-    	if(p==p1)
-      		p=p2;
+    	if(p == p1)
+      		p = p2;
     	else
-      	p=p1;
+			p = p1;
     
     	nbTurn++;
   	}
