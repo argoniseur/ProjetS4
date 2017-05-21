@@ -17,13 +17,6 @@
 #define white_p 1
 #define black_p 2
 
-/*
-	Plateau.c :  à faire :  search_winner
-	
-
-*/
-
-
 int main(int argc, char ** argv){
 	Board d;
 	int cptErr=0;
@@ -161,7 +154,7 @@ int main(int argc, char ** argv){
 			
 			printf("[OK] Creation du plateau.\n");	
 			
-			//Insertion d'une valeur dans une cellule
+			//Insertion d'une valeur dans le plateau
 			insert_cell_value(d,3,1);
 			cptTest++;
 			if (d->tab[3]->value != 1){
@@ -213,13 +206,50 @@ int main(int argc, char ** argv){
 			}else printf("[OK] Cellule vide.\n");
 			
 			//Recherche d'un gagnant - search_winner()
-			
-			
-			
-			
-			
-			
-			
+			Board b = create_board();
+			Board bwhitewinner = create_board();
+			Board bblackwinner = create_board();
+			int winner=0;
+			int joueurTestGagnant=1;
+			int cptTour=0
+			//Mise en place d'un plateau de jeu où il reste une seule case à remplir
+			for ( testint=0 ; testint < ((b->size)-2) && !winner ; testint++){
+				if (cptTour == 2){
+					if (joueurTestGagnant == 1) joueurTestGagnant=2;
+					else joueurTestGagnant=1;
+					cptTour=0;
+				}
+				insert_cell_value(b,testint,joueurTestGagnant);
+				winner=search_winner(b);
+				cptTour++;
+			}
+			if ( winner != 0) printf("[ERREUR] Le plateau à un gagnant.\n");
+			else{
+				insert_cell_value(b,(b->size),2);
+				insert_cell_value(b,(b->size)-1,2);
+				winner=search_winner(b);
+				if ( winner != 0) printf("[ERREUR] Le plateau à un gagnant.\n");
+				else{ //il reste une seule case vide, d'indice (b->size)-2
+					bwhitewinner=b;
+					bblackwinner=b;
+					//cas où le gagnant est le joueur white
+					cptTest++;
+					insert_cell_value(bwhitewinner,(b->size)-2,1);
+					winner=search_winner(bwhitewinner);
+					if ( winner != 1 ){
+						printf("[ERREUR] Recherche d'un gagnant 1/2 - search_winner()\n");
+						cptErr++;
+					}else printf("[OK] Recherche d'un gagnant 1/2.\n");
+					//cas où le gagnant est le joueur black
+					cptTest++;
+					insert_cell_value(bblackwinner,(b->size)-2,2);
+					winner=search_winner(bblackwinner);
+					if ( winner != 2 ){
+						printf("[ERREUR] Recherche d'un gagnant 2/2 - search_winner()\n");
+						cptErr++;
+					}else printf("[OK] Recherche d'un gagnant 2/2.\n");
+				}
+			}
 			
                 /* Menu */
             printf("\n-- Menu -- \n");
@@ -276,7 +306,11 @@ int main(int argc, char ** argv){
             print_board(d);
 		}
 		
-		board_delete(d); //Suppression du plateau
+		//Suppression des plateaux
+		board_delete(d); 
+		board_delete(b);
+		board_delete(bblackwinner);
+		board_delete(bwhitewinner);
         
     }
         
@@ -284,4 +318,3 @@ int main(int argc, char ** argv){
     printf("\nIl y a %d erreurs sur %d tests.\n\n",cptErr,cptTest);
 	return (0);
 }
-

@@ -1,3 +1,8 @@
+//Module plateau
+//Par: Gaffiero Allison, Courdy-Bahsoun Clémence, de Fercluc Louis
+//Dernière modification: 21.05.2017
+//Objectif: plateau de jeu
+//	    Permet l'utilisation d'un plateau de jeu
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
@@ -15,7 +20,11 @@
 #define white_p 1
 #define black_p 2
 
-//Bord gauche
+/**
+ * Initialise le bord gauche du plateau
+ * Paramètre : b = plateau du jeu
+ * Retourne le plateau du jeu entré en paramètre avec le bord gauche inititialisé
+ */
 Board init_B1(Board b){
     for(int i=0;i<N;i++){
         b->sentinelB1->neighboors[i] = b->tab[i*N];
@@ -25,7 +34,11 @@ Board init_B1(Board b){
     return b;
 }
 
-//Bord droit
+/**
+ * Initialise le bord droit du plateau
+ * Paramètre : b = plateau du jeu
+ * Retourne le plateau du jeu entré en paramètre avec le bord droit inititialisé
+ */
 Board init_B2(Board b){
     for(int i=0;i<N;i++){
         b->sentinelB2->neighboors[i] = b->tab[(i*N)+(N-1)];
@@ -35,7 +48,11 @@ Board init_B2(Board b){
     return b;
 }
 
-//Bord haut
+/**
+ * Initialise le bord supérieur du plateau
+ * Paramètre : b = plateau du jeu
+ * Retourne le plateau du jeu entré en paramètre avec le bord supérieur inititialisé
+ */
 Board init_W1(Board b){
     for(int i=0;i<N;i++){
         b->sentinelW1->neighboors[i] = b->tab[i];
@@ -45,7 +62,11 @@ Board init_W1(Board b){
     return b;
 }
 
-//Bord bas
+/**
+ * Initialise le bord inférieur du plateau
+ * Paramètre : b = plateau du jeu
+ * Retourne le plateau du jeu entré en paramètre avec le bord inférieur inititialisé
+ */
 Board init_W2(Board b){
     for(int i=0;i<N;i++){
         b->sentinelW2->neighboors[i] = b->tab[(N*(N-1))+i];
@@ -60,8 +81,12 @@ Board init_W2(Board b){
  * Par COURDY-BAHSOUN Clémence
  * Dernière modification: 13.04.2017
  */
-
-  //Fonction de creation d'une Cellule
+ 
+/**
+ * Création d'une cellule
+ * Paramètre : index = indice de la cellule
+ * Retourne la cellule créée, initialisée à l'indice index et à la valeur 0
+ */
 Cell create_cell(int index){ 
     //allocation espace mémoire pour une cellule
     Cell c = (Cell)malloc(sizeof(struct s_cell));
@@ -73,8 +98,12 @@ Cell create_cell(int index){
     c->neighboors = (Cell *)malloc(6*sizeof(struct s_cell));
     return c;
 }
-  
-  //Fonction de création d'une sentinelle
+
+/**
+ * Création d'une sentinelle
+ * Paramètre : val = valeur de la cellule sentinelle
+ * Retourne la cellule sentinelle créée, initialisée à l'indice -1 et à la valeur val
+ */
 Cell create_sentinel(int val){
     Cell s = (Cell)malloc(sizeof(struct s_cell));
     
@@ -84,18 +113,22 @@ Cell create_sentinel(int val){
 	return s;
 }
 
-//Fonction de création du plateau
+/**
+ * Création d'un plateau
+ * Aucun parametres d'entrés
+ * Retourne le plateau créé et initialisés
+ */
 Board create_board(){ 
     
     Board b=(Board)malloc(sizeof(struct s_board));
     
     b->size = N*N;
     
-    //Création de la sentinelle pour les bords gauche et droite
+    //Création de la sentinelle pour les bords supérieur et inférieur
     b->sentinelW1 = create_sentinel(-2);
     b->sentinelW2 = create_sentinel(-3);
 
-    //Création de la sentinelle pour les bords supérieurs et inférieurs
+    //Création de la sentinelle pour les bords gauche et droite
     b->sentinelB1 = create_sentinel(-4);
     b->sentinelB2 = create_sentinel(-6);
     
@@ -139,12 +172,24 @@ Board create_board(){
     return b;
 }
 
-/* Insère la valeur passée en paramètre dans la cellule d'index "index" */
+/**
+ * Insertion d'une valeur dans le plateau
+ * Paramètres : b = plateau du jeu
+ * 				index = indice de la cellule où il faut insérer une valeur
+ *				value = valeur à insérer dans le plateau à l'indice index
+ * Retourne le plateau avec la valeur value à l'indice index du plateau
+ */
 Board insert_cell_value(Board b, int index, int value){
     b->tab[index]->value = value;
     return b;
 }
-/* Vérifie la validité des coordonnées */
+
+/**
+ * Vérification de la validité des coordonnées
+ * Paramètres : a = entier correspondant à la ligne
+ * 				c = entier correspondant à la colonne
+ * Retourne un boolean, faux si a ou c n'est pas dans l'intervalle [1;N], vrai sinon
+ */
 bool check_coord(int a, int c){
     if(a<1 || a>N)
         return false;
@@ -154,6 +199,13 @@ bool check_coord(int a, int c){
     return true;
 }
 
+/**
+ * Vérification si une cellule est vide
+ * Paramètres : b = plateau du jeu
+ * 				a = entier correspondant à la ligne
+ * 				c = entier correspondant à la colonne
+ * Retourne un boolean si la case correspondant n'est pas vide
+ */
 bool check_cell(Board b, int a, int c){
     if((a>0 && a<=N) && (c>0 && c<=N))
         if(b->tab[N*(a-1)+(c-1)]->value != 0)
@@ -161,7 +213,11 @@ bool check_cell(Board b, int a, int c){
     return true;
 }
 
-
+/**
+ * Recherche si le joueur white_p est gagnant
+ * Paramètres : b = plateau du jeu
+ * 				cell = tableau de cellule
+ */
 void search_W(Board b, int cells[]){
     int cpt = 0;
 
@@ -174,6 +230,11 @@ void search_W(Board b, int cells[]){
     cells[N] = cpt;
 }
 
+/**
+ * Recherche si le joueur black_p est gagnant
+ * Paramètres : b = plateau du jeu
+ * 				cell = tableau de cellule
+ */
 void search_B(Board b, int cells[]){
     int cpt = 0;
 
@@ -186,6 +247,13 @@ void search_B(Board b, int cells[]){
     cells[N] = cpt;
 }
 
+/**
+ * Recherche la cellule tst
+ * Paramètres : tested = tableau de cellule
+ *				tst = cellule à trouver
+ *				cpt_tested = nombre de cellule dans le tableau tested
+ * Retourne un boolean, vrai si la cellule test est dans le tableau tested, faux sinon
+*/
 bool tested_cell(Cell tested[], Cell tst, int cpt_tested){
     for(int i=0;i<cpt_tested;i++){
         //printf("tested: value_c=%d, index_c=%d\n",tested[i]->value, tested[i]->index);
@@ -195,6 +263,14 @@ bool tested_cell(Cell tested[], Cell tst, int cpt_tested){
     return false;
 }
 
+/**
+ * Recherche si un joueur a relié ses deux bords du plateau
+ * Paramètres : tst = cellule de départ située sur un bord
+ *				tested = tableau de cellule
+ *				cpt_tested = nombre de cellule dans le tableau tested
+ *				joueur = entier désignant le joueur
+ * Retourne un boolean, vrai si le joueur a relié les deux bords du plateau
+*/
 bool search_winner_through(Cell tst, Cell tested[], int cpt_tested, int joueur){
     bool win = false;
     for(int i = 0;i<6;i++){
@@ -213,6 +289,12 @@ bool search_winner_through(Cell tst, Cell tested[], int cpt_tested, int joueur){
     return win;
 }
 
+/**
+ * Rechercher gagnant
+ * Paramètre : b = plateau du jeu
+ * Appel la fonction search_winner_through autant de fois qu'il y a de cellule blanche ou noire sur les bords
+ * Retourne un entier désignant le gagnant du jeu, ou 0 s'il n'y a pas de gagnant
+ */
 int search_winner(Board b){
     int cells[N+1];
     Cell tested[((N*N)/2)+1];
@@ -245,20 +327,31 @@ int search_winner(Board b){
  * Dernière modification le 15.04.2017
  */
   
-    //Destructon d'une cellule
-  
+/**
+ * Destruction d'une cellule
+ * Paramètre : c = cellule à supprimer
+ * Supprime la cellule et ses cellules voisines
+ */
 void cell_delete(Cell c){
     free(c->neighboors);
     free(c);
 }
 
-  //Suppression d'une sentinelle
+/**
+ * Destruction d'une sentinelle
+ * Paramètre : s = sentinelle à supprimer
+ * Supprime la sentinelle et ses cellules voisines
+ */
 void sentinel_delete(Cell s){
     free(s->neighboors);
     free(s);
 }
 
-//Suppression du plateau
+/**
+ * Suppression du plateau
+ * Paramètre : b = plateau à supprimer
+ * Supprime toutes les cellules et les sentinelles
+ */
 void board_delete(Board b){
   
     for(int i=0;i<b->size;i++)

@@ -39,10 +39,10 @@ Board create_board();
 /* Insertion d'une valeur dans le plateau */
 Board insert_cell_value(Board b, int index, int value);
 
-/* Vérifie que les coordonnées sont corrects */
+/* Vérification de la validité des coordonnées */
 bool check_coord(int a, int c);
 
-/* Retourne si une cellule est vide */
+/* Vérification si une cellule est vide */
 bool check_cell(Board b, int a, int c);
 
 /* Recherche d'un gagnant */
