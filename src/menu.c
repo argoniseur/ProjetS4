@@ -1,6 +1,6 @@
 //Module menu
 //Par: Gaffiero Allison, Courdy-Bahsoun Clémence, de Fercluc Louis
-//Dernière modification: 12.05.2017
+//Dernière modification: 21.05.2017
 //Objectif: l'interaction avec les joueurs
 //	    Permet le stockage des données concernant les joueurs et leurs modifications
 //Dépendances: Module plateau
@@ -8,15 +8,16 @@
 #include "menu.h"
 #define N 11
 /**
- * Initialise les informations des deux joueurs 
- * Rôle des paramètres: pa et pb sont des paramètres d'entrées/sorties qui sont initialisés avec les informations propres aux deux joueurs
+ * Initialise les informations d'un joueur 
+ * Paramètre : num = valeur du joueur
+ * Retourne un joueur initialisé
  */
 Player init_players(int num){
 	Player pa = (Player)malloc(sizeof(struct s_player));
 	printf("saisissez le nom du joueur\n");
 	fgets((pa)->nom,22,stdin);
 
-	/* Problème valgrind ici. Il n'aime pas le changement de saut de ligne en caractère vide car il considère que le tableau n'est pas initialisé */
+	/* Problème valgrind ici ; Il n'aime pas le changement de saut de ligne en caractère vide car il considère que le tableau n'est pas initialisé */
 	for (int i = 0;i<21;i++)
 		if(pa->nom[i] == '\n')
 			pa->nom[i] = '\0';
@@ -29,8 +30,12 @@ Player init_players(int num){
 
 /**
  * Saisie des coordonnees d'entrer
- * Paramètres: b = plateau en entrée modifié par l'insertion d'un pion de la valeur associé à p qui est alors retourné en sorti
- * 		p = Information du joueur dont c'est le tour qui sont affichés puis mis à jour 
+ * Paramètres: 	b = plateau en entrée modifié par l'insertion d'un pion de la valeur associé à p qui est alors retourné en sorti
+ * 				p = informations du joueur dont c'est le tour qui sont affichés puis mises à jour
+ *				histo = historique de la partie qui est mis à jour
+ *				nbTurn = nombre de tour depuis le début de la partie
+ *				quitter = entier changé si le joueur veut quitter la partie en cours
+ * Retourne le plateau modifié
  */
 Board get_and_insert_coord(Board b, Player *p, Historique histo[], int nbTurn, int *quitter){
 		int lig, col;
@@ -54,7 +59,7 @@ Board get_and_insert_coord(Board b, Player *p, Historique histo[], int nbTurn, i
 				return b;
 			}
 			if(lig == -3)
-				printf("Att gros");
+				printf("Att gros"); // Really man ?
 
 			printf("Numéro de colonne: "); scanf("%d", &col);
 
@@ -79,21 +84,27 @@ Board get_and_insert_coord(Board b, Player *p, Historique histo[], int nbTurn, i
 }
 
 /**
- * affichage du menu de jeu
+ * Affichage du menu de jeu
  * Aucun parametres d'entrés
- * Retourne un char faisant office de booléen pour savoir si une nouvelle partie doit être lancé O-> OUI / N-> NON
+ * Retourne entier faisant office de choix pour savoir si nouvelle partie doit être lancée, ou charger une partie ou quitter le jeu
  */
 int newGame(){
-	int choose;
-	printf("------- Menu Hex -------\n");
-	printf("1 - Nouvelle partie\n");
-	printf("2 - Charger partie\n");
-	printf("3 - Quitter\n");
-	scanf("%d", &choose);
-
+	int choose=0;
+	while ( choose != 1  && choose != 2 && choose != 3 ){
+		printf("------- Menu Hex -------\n");
+		printf("1 - Nouvelle partie\n");
+		printf("2 - Charger partie\n");
+		printf("3 - Quitter\n");
+		scanf("%d", &choose);
+	}
 	return choose;
 }
 
+/**
+ * Mise à jour de l'historique de toutes les parties jouées
+ * Paramètres :	pa = joueur gagnant
+ *				pb = joueur perdant
+*/
 void historical(Player pa, Player pb){
 	FILE* fic = NULL;
   
@@ -107,12 +118,24 @@ void historical(Player pa, Player pb){
 		}
 }
 
+/**
+ * Initialisation de l'historique
+ * Paramètres : histo = créer un historique pouvant contenir N*N données
+*/
 void init_histo(Historique histo[]){
 	for(int i = 0;i<N*N;i++){
 		histo[i] = (Historique)malloc(sizeof(struct s_historique));
 	}
 }
 
+/**
+ * Sauvegarder la partie
+ * Paramètres : b = plateau du jeu
+ *				aa = l'un des deux joueur de la partie
+ *				bb = l'autre joueur de la partie
+ *				histo = historique de la partie
+ *				nbTurn = nombre de tour actuel de la partie
+*/
 void save_game(Board b, Player aa, Player bb, Historique histo[], int nbTurn){
 	FILE* fichier = NULL;
 	char nomfic[55], tmp[11];

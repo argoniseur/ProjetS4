@@ -22,16 +22,22 @@ typedef struct s_historique{
 	int column;
 }*Historique;
 
+/* Initialise les informations d'un joueur */
 Player init_players(int num);
 
+/* Saisie des coordonnees d'entrer */
 Board get_and_insert_coord(Board b, Player *p, Historique histo[], int nbTurn, int *quitter);
 
+/* Affichage du menu du jeu */
 int newGame();
 
+/* Mise à jour de l'historique de toutes les parties jouées */
 void historical(Player pa, Player pb);
 
+/* Initialisation de l'historique */
 void init_histo(Historique histo[]);
 
+/* Sauvegarder la partie */
 void save_game(Board b, Player aa, Player bb, Historique histo[], int nbTurn);
 
 #endif

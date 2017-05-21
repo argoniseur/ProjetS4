@@ -32,6 +32,7 @@ int main(int argc, char ** argv){
 	int cptErr=0;
 	int cptTest=0;
 	int testint;
+	Historique histo[N*N];
 	//Plateau
 	bool chainE=true;
 	bool chainSE=true;
@@ -226,7 +227,7 @@ int main(int argc, char ** argv){
                 /* Menu */
             printf("\n-- Menu -- \n");
 				
-			//Initialise les informations des joueurs - init_players()
+			//Initialise les informations d'un joueur - init_players()
             cptTest=cptTest+6;
 			pa=init_players(1);
 			pb=init_players(2);
@@ -239,20 +240,23 @@ int main(int argc, char ** argv){
 			if ( cptErrMenu != 0 ) printf("[ERREUR] init_players() - %d erreurs sur 6 tests.\n",cptErrMenu);
 			else printf("[OK] Initialisation des joueurs - 6 tests effectués.\n");
                
-            		cptErr=cptErr+cptErrMenu;
-              
+            cptErr=cptErr+cptErrMenu;
+			
+			//Initialisation de l'historique
+			init_histo(&histo);
+			printf("Historique initialisé.\n");
+			
 			//Saisie des coordonnees d'entrer - get_and_insert_coord()
-			cptErrMenu=0;
 			printf("     Coordonnées valides : Faites [1,1].\n");
-			get_and_insert_coord(d,&pa);
+			d=get_and_insert_coord(d,&pa,histo,0,&testint);
 			printf("     Coordonnées invalides, les deux : Faites [-3,-2]. Puis [3,2].\n");
-			get_and_insert_coord(d,&pa);
+			d=get_and_insert_coord(d,&pa,histo,1,&testint);
 			printf("     Coordonnées invalides, ligne : Faites [414,3]. Puis [2,3].\n");
-			get_and_insert_coord(d,&pa);
+			d=get_and_insert_coord(d,&pa,histo,2,&testint);
 			printf("     Coordonnées invalides, colonne : Faites [3,414]. Puis [3,3].\n");
-			get_and_insert_coord(d,&pa);
+			d=get_and_insert_coord(d,&pa,histo,3,&testint);
 			printf("     Case occupée : Essayez [3,3]. Puis [3,4].\n");
-			get_and_insert_coord(d,&pa);
+			d=get_and_insert_coord(d,&pa,histo,4,&testint);
 			
 			//Affichage du menu de jeu - newGame()
 			cptTest++;
@@ -262,8 +266,13 @@ int main(int argc, char ** argv){
 				cptErr++;
 			}else printf("[OK] Menu du jeu.\n");
 			
-
-
+			//Mise à jour de l'historique de toutes les parties jouées
+			historical(pa,pb);
+			printf("Historique de toutes les parties jouées mis à jour.\n");
+			
+			//Sauvegarder la partie
+			save_game(d,pa,pb,histo,4);
+			printf("Sauvegarde de la partie effectué.\n");
 
                        /* Affichage */
             printf("\n-- Affichage --\n");
