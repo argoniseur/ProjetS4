@@ -36,12 +36,16 @@ Board init_W2(Board b);
 /* Initialise le plateau */
 Board create_board();
 
+/* Insertion d'une valeur dans le plateau */
 Board insert_cell_value(Board b, int index, int value);
 
+/* Vérifie que les coordonnées sont corrects */
 bool check_coord(int a, int c);
 
+/* Retourne si une cellule est vide */
 bool check_cell(Board b, int a, int c);
 
+/* Recherche d'un gagnant */
 int search_winner(Board b);
 
 /* Supprime le plateau et libère la mémoire */

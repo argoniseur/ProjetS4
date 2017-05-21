@@ -19,10 +19,7 @@
 
 /*
 	Plateau.c :  à faire :  search_winner
-	Menu.c : à faire : historical
-	Affichage.c : terminé
 	
-	Vérifier que d'autres fonctions n'ont pas été ajoutée
 
 */
 
@@ -274,11 +271,11 @@ int main(int argc, char ** argv){
 			save_game(d,pa,pb,histo,4);
 			printf("Sauvegarde de la partie effectué.\n");
 
-                       /* Affichage */
+			/* Affichage */
             printf("\n-- Affichage --\n");
             print_board(d);
 		}
-        
+		
 		board_delete(d); //Suppression du plateau
         
     }
