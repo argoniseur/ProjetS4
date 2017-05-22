@@ -9,7 +9,6 @@ void print_board(Board b){
 	printf("Liste des commandes:\n");
 	printf("-1: Quitter et sauvegarder\n");
 	printf("-2: Quitter sans sauvegarder\n");
-	printf("-3: Annuler le dernier coup joué\n");
 	printf("Entrer le chiffre dans 'Numéro de ligne' et valider\n");
 	printf("\n");
 	for (int i=0;i<N;i++){

@@ -183,3 +183,38 @@ void save_game(Board b, Player aa, Player bb, Historique histo[], int nbTurn){
 		fclose(fichier);
 	}
 }
+
+Board load_game(Board b){
+		return b;
+
+		/* Ceci est un début de code de la fonction de chargement de partie. Une erreur bizarre m'a forcé à arrêter.
+			Mon compilateur ne trouve pas les fonctions contenues dans dirent.h donc impossible de faire quoi que ce soit de fonctionnel
+		*/
+        DIR* rep; 
+        rep = opendir("./saves");
+        int choix, cpt = 1;
+        system("clear");
+        if (rep != NULL){
+                struct dirent * lecture;
+                while((lecture = readdir(rep)) != NULL){
+                    printf("%d: %s\n", cpt, lecture->d_name);
+                    cpt++;
+                }
+                printf("Affichage du contenu du dossier de sauvegarde. Veuillez choisir un fichier\n de sauvegarde valide de format nom-nom-chiffre.txt:\n");
+                scanf("%d", &choix);
+                if(choix>0 && choix<cpt)
+                	closedir(rep);
+                	rep = opendir("./saves");
+                	cpt = 1;
+                	while((lecture = readdir(rep)) != NULL){
+                    	if(cpt == choix){
+                    		fopen(lecture->d_name,"a");
+
+                    	}
+
+                	}
+
+
+                closedir(rep);
+        }
+}

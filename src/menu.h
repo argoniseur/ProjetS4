@@ -5,6 +5,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <dirent.h>
+#include <sys/stat.h>
+#include <unistd.h>
+
 #include "Plateau.h"
 
 #define NOMJOUEUR 20
@@ -39,5 +43,7 @@ void init_histo(Historique histo[]);
 
 /* Sauvegarder la partie */
 void save_game(Board b, Player aa, Player bb, Historique histo[], int nbTurn);
+
+Board load_game(Board b);
 
 #endif
