@@ -245,6 +245,7 @@ int main(int argc, char ** argv){
 				}else{ //il reste une seule case vide, d'indice (b->size)-2
 					bwhitewinner=b;
 					bblackwinner=b;
+
 					//cas où le gagnant est le joueur white
 					cptTest++;
 					insert_cell_value(bwhitewinner,(b->size)-2,1);
@@ -388,24 +389,14 @@ int main(int argc, char ** argv){
 				cptErr++;
 			}
 			
-			//Mise à jour de l'historique de toutes les parties jouées
-			historical(pa,pb);
-			printf("Historique de toutes les parties jouées mis à jour.\n");
-			
-			//Sauvegarder la partie
-			save_game(d,pa,pb,histo,4);
-			printf("Sauvegarde de la partie effectué.\n");
-
 			/* Affichage */
             printf("\n-- Affichage --\n");
             print_board(d);
 		}
 		
 		//Suppression des plateaux
-		board_delete(d); 
+		board_delete(d);
 		board_delete(b);
-		board_delete(bblackwinner);
-		board_delete(bwhitewinner);
 		board_delete(testcolonne);
 		board_delete(testligne);
         
